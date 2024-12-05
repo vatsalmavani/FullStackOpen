@@ -9,6 +9,12 @@ const App = () => {
   ]);
   const [newName, setNewName] = useState("");
   const [newNum, setNewNum] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchTerm(event.target.value);
+  };
 
   const hasName = (newName) => {
     for (const obj of persons) {
@@ -19,6 +25,8 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setNewName("");
+    setNewNum("");
     if (hasName(newName)) {
       alert(`${newName} already exists in the phonebook`);
       return;
@@ -38,6 +46,9 @@ const App = () => {
 
   return (
     <div>
+      <label>
+        search: <input type="text" value={searchTerm} onChange={handleSearch} />
+      </label>
       <h2>Phonebook</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -52,12 +63,21 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>
-        {persons.map((obj) => (
-          <div key={obj.id}>
-            {obj.name}: {obj.number}
-            <br />
-          </div>
-        ))}
+        {searchTerm !== ""
+          ? persons
+              .filter((obj) => obj.name.includes(searchTerm))
+              .map((obj) => (
+                <div key={obj.id}>
+                  {obj.name}: {obj.number}
+                  <br />
+                </div>
+              ))
+          : persons.map((obj) => (
+              <div key={obj.id}>
+                {obj.name}: {obj.number}
+                <br />
+              </div>
+            ))}
       </div>
     </div>
   );
