@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Numbers from "./components/Numbers";
+import Add from "./components/Add";
+import Search from "./components/Search";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -46,41 +49,17 @@ const App = () => {
 
   return (
     <div>
-      <label>
-        search: <input type="text" value={searchTerm} onChange={handleSearch} />
-      </label>
+      <Search searchTerm={searchTerm} handleSearch={handleSearch} />
       <h2>Phonebook</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          name: <input value={newName} onChange={handleChangeName} />
-        </div>
-        <div>
-          number: <input value={newNum} onChange={handleChangeNum} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Add
+        handleChangeName={handleChangeName}
+        handleChangeNum={handleChangeNum}
+        handleSubmit={handleSubmit}
+        newName={newName}
+        newNum={newNum}
+      />
       <h2>Numbers</h2>
-      <div>
-        {searchTerm !== ""
-          ? persons
-              .filter((obj) =>
-                obj.name.toLowerCase().includes(searchTerm.toLowerCase())
-              )
-              .map((obj) => (
-                <div key={obj.id}>
-                  {obj.name}: {obj.number}
-                  <br />
-                </div>
-              ))
-          : persons.map((obj) => (
-              <div key={obj.id}>
-                {obj.name}: {obj.number}
-                <br />
-              </div>
-            ))}
-      </div>
+      <Numbers searchTerm={searchTerm} persons={persons} />
     </div>
   );
 };
