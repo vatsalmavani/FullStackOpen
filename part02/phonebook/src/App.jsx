@@ -65,7 +65,9 @@ const App = () => {
       <div>
         {searchTerm !== ""
           ? persons
-              .filter((obj) => obj.name.includes(searchTerm))
+              .filter((obj) =>
+                obj.name.toLowerCase().includes(searchTerm.toLowerCase())
+              )
               .map((obj) => (
                 <div key={obj.id}>
                   {obj.name}: {obj.number}
