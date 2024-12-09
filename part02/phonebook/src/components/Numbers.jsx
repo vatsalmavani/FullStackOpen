@@ -1,24 +1,20 @@
-function Numbers({ searchTerm, persons }) {
+function Numbers({ searchTerm, persons, handleDelete }) {
+  const peopleToShow =
+    searchTerm !== ""
+      ? persons.filter((obj) =>
+          obj.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : persons;
   return (
-    <div>
-      {searchTerm !== ""
-        ? persons
-            .filter((obj) =>
-              obj.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            .map((obj) => (
-              <div key={obj.id}>
-                {obj.name}: {obj.number}
-                <br />
-              </div>
-            ))
-        : persons.map((obj) => (
-            <div key={obj.id}>
-              {obj.name}: {obj.number}
-              <br />
-            </div>
-          ))}
-    </div>
+    <>
+      {peopleToShow.map((obj) => (
+        <div key={obj.id}>
+          {obj.name}: {obj.number}
+          <button onClick={() => handleDelete(obj)}>delete</button>
+          <br />
+        </div>
+      ))}
+    </>
   );
 }
 

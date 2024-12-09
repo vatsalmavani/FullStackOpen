@@ -1,0 +1,16 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "important": true
+    },
+    {
+      "id": 2,
+      "important": false
+    },
+    {
+      "id": 3,
+      "important": true
+    }
+  ]
+}
